@@ -2,7 +2,7 @@
 // and return whether the triangle is equilateral, isosceles or scalene. We are looking for solutions that showcase problem solving 
 // skills and structural considerations that can be applied to larger and potentially more complex problem domains.
 // Include a brief discussion of your design decisions and implementation choices.
-package main.java.triangle;
+package triangle;
 import java.util.*;
 
 public class Triangle {

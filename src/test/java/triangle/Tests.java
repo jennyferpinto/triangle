@@ -1,4 +1,4 @@
-package main.java.triangle;
+package triangle;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;

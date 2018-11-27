@@ -7,6 +7,17 @@
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopOnEntry": false,
+            "mainClass": "triangle.Triangle",
+            "args": "",
+            "projectName": "triangle"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Triangle",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
             "mainClass": "main.java.triangle.Triangle",
             "args": ""
         }
