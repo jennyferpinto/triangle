@@ -1,7 +1,3 @@
-// Write a program that will determine the type of a triangle. It should take the lengths of the triangle's three sides as input, 
-// and return whether the triangle is equilateral, isosceles or scalene. We are looking for solutions that showcase problem solving 
-// skills and structural considerations that can be applied to larger and potentially more complex problem domains.
-// Include a brief discussion of your design decisions and implementation choices.
 package triangle;
 import java.util.*;
 
@@ -78,17 +74,22 @@ public class Triangle {
 	}
 
 	public static void main(String[] args) {
-		Triangle t1 = new Triangle(4,4,4);
-		Triangle t2 = new Triangle(3,4,4);
-		Triangle t3 = new Triangle(2,4,4);
-		
-		System.out.println(Arrays.toString(t1.getDimensions()));
-		System.out.println(t1.returnFormattedResults());
 
-		System.out.println(Arrays.toString(t2.getDimensions()));
-		System.out.println(t2.returnFormattedResults());
+		int[] inputs = new int[3];
 
-		System.out.println(Arrays.toString(t3.getDimensions()));
-		System.out.println(t3.returnFormattedResults());
+		Scanner reader = new Scanner(System.in); 
+		System.out.println("Enter 3 numbers representing a triangle's dimensions: ");
+
+		for (int i = 0; i < 3; i++) {
+			int x = reader.nextInt();
+			inputs[i] = x;
+		}
+
+		Triangle t = new Triangle(inputs[0], inputs[1], inputs[2]);
+
+		System.out.println(Arrays.toString(t.getDimensions()));
+		System.out.println(t.returnFormattedResults());
+
+		reader.close();
 	}
 }
