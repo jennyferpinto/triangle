@@ -9,65 +9,83 @@ public class Triangle {
 	private Boolean isIsosceles = false;
 
 	public Triangle(int a, int b, int c) {
-		// check to see if dimensions make a legal triangle before calling constructors
 		if (a + b > c && a + c > b && b + c > a) {
 			this.t[0] = a;
 			this.t[1] = b;
 			this.t[2] = c;
-			this.isEquilateral = isEquilateral(this);
-			this.isIsosceles =  isIsosceles(this);
-			this.isScalene = isScalene(this);
+			this.isEquilateral = this.isEquilateral();
+			this.isIsosceles =  this.isIsosceles();
+			this.isScalene = this.isScalene();
 		} else {	
-		throw new java.lang.Error("Not a triangle!");
+			throw new IllegalArgumentException("Dimensions must form a legal triangle!");
 		}
 	}
 
 	public int[] getDimensions() {
-		return t;
+		return this.t;
+	}
+
+	public void setDimensions(int[] arr) {
+		this.t[0] = arr[0];
+		this.t[1] = arr[1];
+		this.t[2] = arr[2];
 	}
 
 	public Boolean getEquilateralProperty() {
-		return isEquilateral;
+		return this.isEquilateral;
+	}
+
+	public void setEquilateralProperty(Boolean b) {
+		this.isEquilateral = b;
 	}
 
 	public Boolean getScaleneProperty() {
-		return isScalene;
+		return this.isScalene;
+	}
+
+	public void setScaleneProperty(Boolean b) {
+		this.isScalene = b;
 	}
 
 	public Boolean getIsoscelesProperty() {
-		return isIsosceles;
+		return this.isIsosceles;
 	}
 
-	private Boolean isEquilateral(Triangle triangle) {
-		if (triangle.t[0] == triangle.t[1] && triangle.t[0] == triangle.t[2]) {
+	public void setIsoscelesProperty(Boolean b) {
+		this.isIsosceles = b;
+	}
+
+	public Boolean isEquilateral() {
+		if (this.t[0] == this.t[1] && this.t[0] == this.t[2]) {
+			// can skip last combination of triangle sides due to mathematical property of transitivity 
 			return true;
 		}
 		return false;
 	}
 	
-	private Boolean isIsosceles(Triangle triangle) {
-		if (triangle.isEquilateral) { // every equilateral triangle is isosceles
+	public Boolean isIsosceles() {
+		if (this.isEquilateral) { // every equilateral triangle is isosceles so can skip additional check
 			return true; 
-		} else if (triangle.t[0] == triangle.t[1] || triangle.t[0] == triangle.t[2] || triangle.t[1] == triangle.t[2]) {
+		} else if (this.t[0] == this.t[1] || this.t[0] == this.t[2] || this.t[1] == this.t[2]) {
 			return true;
 		}
 		return false;
 	}
 
-	private Boolean isScalene(Triangle triangle) {
-		if (triangle.isEquilateral) { // if triangle is isoscles then can't be equilateral
+	public Boolean isScalene() {
+		if (this.isEquilateral) { // if triangle is equilateral then it cannot be scalene so can skip additional check
 			return false;
-		} else if (triangle.t[0] != triangle.t[1] && triangle.t[0] != triangle.t[2] && triangle.t[1] != triangle.t[2]) {
+		} else if (this.t[0] != this.t[1] && this.t[0] != this.t[2] && this.t[1] != this.t[2]) {
 			return true;
 		}
 		return false;
 	}
 
 	public String returnFormattedResults() {
-		StringBuilder builder = new StringBuilder();
+		StringBuilder builder = new StringBuilder(); 
 
 		builder.append(String.format("%s = %b, ", "equilateral", this.isEquilateral));
-		builder.append(String.format("%s = %b, ", "isosceles", this.isIsosceles));
+		builder.append(String.format("%s = %b, ", "isosceles",this.isIsosceles));
 		builder.append(String.format("%s = %b", "scalene", this.isScalene));
 
 		return builder.toString();
@@ -78,7 +96,7 @@ public class Triangle {
 		int[] inputs = new int[3];
 
 		Scanner reader = new Scanner(System.in); 
-		System.out.println("Enter 3 numbers representing a triangle's dimensions: ");
+		System.out.println("Enter 3 integers representing a triangle's dimensions: ");
 
 		for (int i = 0; i < 3; i++) {
 			int x = reader.nextInt();
