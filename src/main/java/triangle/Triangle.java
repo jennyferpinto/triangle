@@ -3,39 +3,48 @@ import java.util.*;
 
 public class Triangle {
 
-	private int[] t = new int[3];
+	private int[] dimensions = new int[3];
 	private Boolean isScalene = false;
 	private Boolean isEquilateral = false;
 	private Boolean isIsosceles = false;
 
 	public Triangle(int a, int b, int c) {
-		if (a + b > c && a + c > b && b + c > a) {
-			this.t[0] = a;
-			this.t[1] = b;
-			this.t[2] = c;
-			this.isEquilateral = this.isEquilateral();
-			this.isIsosceles =  this.isIsosceles();
-			this.isScalene = this.isScalene();
-		} else {	
+
+		if ( a < 0 || b < 0 || c < 0 ) {
 			throw new IllegalArgumentException("Dimensions must form a legal triangle!");
+		} else {
+			setDimensions(a, b, c);
 		}
 	}
 
 	public int[] getDimensions() {
-		return this.t;
+		return this.dimensions;
 	}
 
-	public void setDimensions(int[] arr) {
-		this.t[0] = arr[0];
-		this.t[1] = arr[1];
-		this.t[2] = arr[2];
+	public void setDimensions(int a, int b, int c) {
+		// assertion to check that the updated dimensions make a legal triangle
+
+		if (isLegalTriangle(a, b, c)) {
+			this.dimensions[0] = a;
+			this.dimensions[1] = b;
+			this.dimensions[2] = c;
+			updateTriangleProperties();
+		} else {
+			throw new IllegalArgumentException("Dimensions must form a legal triangle!");
+		}
+	}
+
+	private void updateTriangleProperties() {
+		setEquilateralProperty(this.isEquilateral());
+		setIsoscelesProperty(this.isIsosceles());
+		setScaleneProperty(this.isScalene());
 	}
 
 	public Boolean getEquilateralProperty() {
 		return this.isEquilateral;
 	}
 
-	public void setEquilateralProperty(Boolean b) {
+	private void setEquilateralProperty(Boolean b) {
 		this.isEquilateral = b;
 	}
 
@@ -43,7 +52,7 @@ public class Triangle {
 		return this.isScalene;
 	}
 
-	public void setScaleneProperty(Boolean b) {
+	private void setScaleneProperty(Boolean b) {
 		this.isScalene = b;
 	}
 
@@ -51,12 +60,20 @@ public class Triangle {
 		return this.isIsosceles;
 	}
 
-	public void setIsoscelesProperty(Boolean b) {
+	private void setIsoscelesProperty(Boolean b) {
 		this.isIsosceles = b;
 	}
 
+	private Boolean isLegalTriangle(int a, int b, int c) {
+		if (a + b > c && a + c > b && b + c > a) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public Boolean isEquilateral() {
-		if (this.t[0] == this.t[1] && this.t[0] == this.t[2]) {
+		if (this.dimensions[0] == this.dimensions[1] && this.dimensions[0] == this.dimensions[2]) {
 			// can skip last combination of triangle sides due to mathematical property of transitivity 
 			return true;
 		}
@@ -66,7 +83,7 @@ public class Triangle {
 	public Boolean isIsosceles() {
 		if (this.isEquilateral) { // every equilateral triangle is isosceles so can skip additional check
 			return true; 
-		} else if (this.t[0] == this.t[1] || this.t[0] == this.t[2] || this.t[1] == this.t[2]) {
+		} else if (this.dimensions[0] == this.dimensions[1] || this.dimensions[0] == this.dimensions[2] || this.dimensions[1] == this.dimensions[2]) {
 			return true;
 		}
 		return false;
@@ -75,7 +92,7 @@ public class Triangle {
 	public Boolean isScalene() {
 		if (this.isEquilateral) { // if triangle is equilateral then it cannot be scalene so can skip additional check
 			return false;
-		} else if (this.t[0] != this.t[1] && this.t[0] != this.t[2] && this.t[1] != this.t[2]) {
+		} else if (this.dimensions[0] != this.dimensions[1] && this.dimensions[0] != this.dimensions[2] && this.dimensions[1] != this.dimensions[2]) {
 			return true;
 		}
 		return false;
